@@ -1,0 +1,28 @@
+{
+    "id": "m_12",
+    "title": "title_m_12",
+    "key": "MeshPhongMaterial",
+    "obj": {
+        "type": "MeshPhongMaterial",
+        "color": "#ffed44",
+        "skinning": false,
+        "flatShading": false,
+        "depthFunc": 3,
+        "blending": 1,
+        "side": 0,
+        "opacity": 1,
+        "transparent": false,
+        "alphaTest": 0,
+        "wireframe": false,
+        "reflectivity": 0.52,
+        "refractionRatio": 0.98,
+        "specular": "#050505",
+        "shininess": 103.07,
+        "emissive": "#000000"
+    },
+    "mirro": 1,
+    "resurs": {
+        "array": []
+    },
+    "orig": "xz.png"
+}
