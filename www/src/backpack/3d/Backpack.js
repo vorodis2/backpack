@@ -27,7 +27,8 @@ export class Backpack  {
 
         this.matNaC3d=function(c3d, nameMat){           
             if(c3d.material){
-                let m=self.par.pm.mat.getIDReturn(nameMat)
+                let m=self.par.pm.mat.getIDReturn(nameMat, true)
+                m.color=new THREE.Color(c3d.color)
                 c3d.material=m;                
             }
         }
@@ -36,7 +37,9 @@ export class Backpack  {
         this.creatMat=function(c3d){  
             for (var i = 0; i < c3d.children.length; i++) {
                 for (var j = 0; j < self.atan.length; j++) {
-                    if(self.atan[j].indexOf(c3d.children[i].name)!=-1){                       
+                    if(self.atan[j].indexOf(c3d.children[i].name)!=-1){ 
+                        c3d.children[i].color="#ffffff";
+
                         this.matNaC3d(c3d.children[i],self.at[j].array[0].id);
                     }
                 }                
@@ -59,25 +62,31 @@ export class Backpack  {
         this.testIndex=function(name){            
             for (var i = 0; i < self.atan.length; i++) {
                 if(self.atan[i].indexOf(name)!=-1){                    
-                    return i
+                    return i;
                 }                
             }
             return -1
         }
 
-        this.redrag1=function(num){ 
-
+        this.redrag1=function(num){
             for (var i = 0; i < self.c3d.children.length; i++) {
                 if(self.atan[this._index].indexOf(self.c3d.children[i].name)!=-1){  
                     this.matNaC3d(self.c3d.children[i],self.at[this._index].array[num].id);
-
                 }
-
             }
-
         }
      
+        this.setColor=function(color){
 
+            for (var i = 0; i < self.c3d.children.length; i++) {
+                if(self.atan[this._index].indexOf(self.c3d.children[i].name)!=-1){ 
+                    self.c3d.children[i].color=color; 
+                    self.c3d.children[i].material.color=new THREE.Color(color);
+                }
+            }
+            self.par.visi3D.intRend=1
+
+        }
 
 
         this.sten
@@ -87,79 +96,19 @@ export class Backpack  {
         var stenDown
         this.move = function (e) { 
             
-           /* if(e)if(e.target)if(e.target.sten){ 
-                
-                if(self.object!=undefined){
 
-                    _bb=true
-                    if(self.object.parent!=undefined)
-                    if(self.mPanel.parent!=undefined)     
-                    
-                    if(stenDown!=undefined){
-                        if(self.object.parent.parent!=undefined)if(self.object.parent.parent.idArr==stenDown.idArr)_bb=false
-                        if(self.object.parent!=undefined)if(self.object.parent.idArr==stenDown.idArr)_bb=false    
-                    }                         
-
-                    if(_bb==false){                            
-                        intersects=self.par.par.par.visi3D.event3DArr.raycaster.intersectObjects([self.mPanel], true);                        
-                        if(intersects[0]){
-                            _xx=self.pointZdvig.x + (intersects[0].uv.x-0.5)*self.whDrag;
-                            _yy=self.pointZdvig.y + (intersects[0].uv.y-0.5)*self.whDrag;
-                            self.object.setXY(_xx, _yy)                    
-                            self.fun("visi3d");
-                            self.par.visiActiv.dragActiv() 
-                            _bb=false
-                        }                                                
-                    } 
-
-                    if(_bb==true){
-                        _xx=e.uv.x*e.target.sten.width;
-                        _yy=e.uv.y*e.target.sten.height;
-                        self.object.setXY(_xx, _yy)                    
-                        self.fun("visi3d");
-                        self.par.visiActiv.dragActiv() 
-                    }                    
-                }
-            } 
-
-            if(self.object)if(self.object.parent==undefined){
-                self.over(e)
-
-            } */
         }
 
 
         this.out = function (e) { 
-            //trace(e)
-            if(e)if(e.target){  
-                
+            if(e)if(e.target){                  
 
             }
-            window.document.body.style.cursor = "auto";   
-           /* if(self.par.par.bactive==false)return          
-            if(e)if(e.target)if(e.target.sten){                
-                self.sten=undefined
-                if(self.object!=undefined){//разруливаем тоскаемый элемент                    
-                    if(self.object.parent!=undefined){                         
-                        e.target.sten.remove(self.object); 
-                        var l=self.getLink(self.object.object)                        
-                        self.glaf.dragPic.start(32, l, null,null,true);
-                        self.dragPriceScane()  
-                        self.fun("visi3d"); 
-
-                    }
-                    if(self.object.outDrag)self.object.outDrag()
-                }
-            }
-            window.document.body.style.cursor = "auto";    
-            blok=null 
-            self.par.visiActiv.dragActiv() */      
+            window.document.body.style.cursor = "auto";     
         }
 
       
         this.over = function (e) { 
-
-
             if(e)if(e.target){
                 let p=self.testIndex(e.target.name)
                 if(p!=-1){
@@ -178,13 +127,6 @@ export class Backpack  {
                 let p=self.testIndex(e.target.name)
                 if(p!=-1){
                     self.fun("index",p)
-
-
-                    //self.matNaC3d(e.target, self.at[p].array[0].id)
-
-                    
-
-
                     return
                 }
             }
@@ -199,7 +141,33 @@ export class Backpack  {
 
     set index(value) {
         if (this._index != value) {
+
+            for (var i = 0; i < this.c3d.children.length; i++) {
+                if(this.atan[this._index]){
+                    if(this.atan[this._index].indexOf(this.c3d.children[i].name)!=-1){ 
+                        this.c3d.children[i].material.emissive.r=0;
+                        this.c3d.children[i].material.emissive.g=0;
+                        this.c3d.children[i].material.emissive.b=0;
+                    }
+                } 
+            }
+
             this._index = value;
+
+            let p=0.5
+            
+            for (var i = 0; i < this.c3d.children.length; i++) {
+                if(this.atan[this._index]){
+                    if(this.atan[this._index].indexOf(this.c3d.children[i].name)!=-1){ 
+                        this.c3d.children[i].material.emissive.r=p;
+                        this.c3d.children[i].material.emissive.g=p;
+                        this.c3d.children[i].material.emissive.b=p;
+
+                    }
+                } 
+            }
+
+
         }           
     }
     get index() { return this._index; }

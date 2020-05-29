@@ -4,7 +4,7 @@
     "key": "MeshPhongMaterial",
     "obj": {
         "type": "MeshPhongMaterial",
-        "color": "#ffffff",
+        "color": "#ff3ff0",
         "skinning": false,
         "flatShading": false,
         "depthFunc": 3,
@@ -21,8 +21,8 @@
                 "link": "resources/data/m_4/textur/pic.jpg",
                 "l": "pic.jpg",
                 "name": "map",
-                "rx": 1,
-                "ry": 1
+                "rx": "1",
+                "ry": "1"
             }
         ],
         "emissive": "#000000",

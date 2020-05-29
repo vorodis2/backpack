@@ -28,11 +28,36 @@ export class PSetings extends MOBaza {
 
 
 
-
+        this.time=500;
+        this.tween = new TWEEN.Tween(visi3D);
 
         function downGal () {
             if(this.idArr==0){
-                self.fun("index",this._index)              
+                self.fun("index",this._index)
+                
+                for (var i = 0; i < mainBig.objectBase.bd.length; i++) {
+                    
+                    if(mainBig.objectBase.bd[i].id==self.aThree[this._index].id){
+                        
+                        if(mainBig.objectBase.bd[i].obj && mainBig.objectBase.bd[i].obj.iz && mainBig.objectBase.bd[i].obj.iz.str){
+                            trace(mainBig.objectBase.bd[i])
+                            var s=mainBig.objectBase.bd[i].obj.iz.str
+                            var ss=""
+                            for (var i = 0; i < s.length; i++) {                
+                                if(s[i]=='|')ss+='"'
+                                else ss+=s[i];    
+                            }
+                            var o=JSON.parse(ss)
+                            
+
+                            self.tween.stop()
+                            self.tween.to(o,self.time).start();
+
+                        }
+                    }
+                }
+
+
             }
             if(this.idArr==1){
                 self.fun("index1",this._index)              
@@ -40,6 +65,17 @@ export class PSetings extends MOBaza {
         }
 
         var wh=(this.window.width-this.otstup*4)/3
+
+
+        this.array[this.array.length]=new DColor(this.window.content,this.otstup,yy,"#ffffff",function(){            
+            self.fun("color",this._value);
+        });
+        this.array[this.array.length-1].width=this.window.width-this.otstup*2;
+        this.array[this.array.length-1].activMouse=false
+        yy+=32
+
+
+        this.aThree
 
         for (var i = 0; i < 2; i++) {
             arrGal[i]=new DGallery(this.window.content,this.otstup,this.otstup,downGal);          
@@ -58,6 +94,9 @@ export class PSetings extends MOBaza {
                 }
                 arrGal[0].start(aa);
                 arrGal[0].height=2*(2+arrGal[0].heightPic)+3
+
+                this.aThree=mainBig.objectBase.three[j].array
+
             }
         }
 
@@ -66,13 +105,17 @@ export class PSetings extends MOBaza {
         this.window.height=32+arrGal[0].height+8;
        
 
-        trace("objectBase",mainBig.objectBase)
+       
 
-        this.dragGal=function(ii){
+        this.dragGal=function(ii){            
+            arrGal[0].y=yy+this.otstup
             if(ii==-1){
                 arrGal[0].index=-1
                 arrGal[1].visible=false;
-                this.window.height=32+arrGal[0].height+8;
+                arrGal[1].y=yy;
+                this.window.height=32+arrGal[0].height+arrGal[0].y+6;
+
+                this.array[0].activMouse=false
             }else{
                 arrGal[1].visible=true;
                 arrGal[1].y=arrGal[0].height+arrGal[0].y+4
@@ -92,8 +135,7 @@ export class PSetings extends MOBaza {
 
 
 
-
-                trace(ii,arrGal[0].array[ii].object)
+                this.array[0].activMouse=true             
             }
         }
 

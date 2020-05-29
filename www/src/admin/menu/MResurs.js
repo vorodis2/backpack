@@ -238,9 +238,11 @@ function IzStat(par, _cont, fun) {
     })
     this.button.width=this.button.height=this.height-this.otstup*2;
 
-    this.button1=new DButton(this.dCont,this.panel.width-(this.height-this.otstup)*3-this.otstup*2,this.otstup,">>",function(){
+    this.button1=new DButton(this.dCont,this.panel.width-(this.height-this.otstup)*3-this.otstup*2,this.otstup,">!>",function(){
         self.drag()        
-        var o=aGlaf.s3d.getMod()        
+        //var o=aGlaf.s3d.getMod() 
+        var o=visi3D.getObj();
+
         var s= JSON.stringify(o)
         var ss=""
         for (var i = 0; i < s.length; i++) {                

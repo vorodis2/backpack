@@ -1,3 +1,26 @@
 {
- 
+    "id": 18,
+    "title": 18,
+    "key": "o_18",
+    "orig": "null",
+    "mod": {
+        "key": "n",
+        "name": "n"
+    },
+    "param": {
+        "tOt": false,
+        "tNa": false,
+        "rO": -1,
+        "kesh": false,
+        "sG": false,
+        "clone": true
+    },
+    "resurs": {
+        "array": []
+    },
+    "iz": {
+        "a": true,
+        "st": false,
+        "str": "{|xVerh|:-1.1361321411208807,|yVerh|:-25.06308655058905,|zVerh|:5.098551428130581,|rotationX|:1.31,|rotationZ|:-4.82,|zume|:137.23160322784878}"
+    }
 }

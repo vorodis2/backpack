@@ -1,3 +1,26 @@
 {
- 
+    "id": 19,
+    "title": 19,
+    "key": "o_19",
+    "orig": "null",
+    "mod": {
+        "key": "n",
+        "name": "n"
+    },
+    "param": {
+        "tOt": false,
+        "tNa": false,
+        "rO": -1,
+        "kesh": false,
+        "sG": false,
+        "clone": true
+    },
+    "resurs": {
+        "array": []
+    },
+    "iz": {
+        "a": true,
+        "st": false,
+        "str": "{|xVerh|:0.05109209710720655,|yVerh|:-10.65842196919979,|zVerh|:6.462056026603413,|rotationX|:1.49,|rotationZ|:-6.130000000000001,|zume|:100}"
+    }
 }
