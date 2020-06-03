@@ -175,8 +175,19 @@ class TextureBD  {
             } else {
                 var id = name;
                 php.load({ tip: 'mkdir', dir: '../' + aGlaf.resursData + id }, function (e) {
+                    
                     php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/256.png', dir: '../' + aGlaf.resursData + id + '/pic.png' }, function (e) {
                     });
+
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/32.png', dir: '../' + aGlaf.resursData + id + '/32.png' }, function (e) {
+                    });
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/100.png', dir: '../' + aGlaf.resursData + id + '/100.png' }, function (e) {
+                    });
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/128.png', dir: '../' + aGlaf.resursData + id + '/128.png' }, function (e) {
+                    });
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/256.png', dir: '../' + aGlaf.resursData + id + '/256.png' }, function (e) {
+                    });
+
                     php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/64.png', dir: '../' + aGlaf.resursData + id + '/64.png' }, function (e) {
                         let texture = {
                             id: id,
@@ -422,13 +433,54 @@ class TextureObject {
             return
         }
 
-        const type = image.name.split('.').pop();
-        const imageMin = await resizeImageFile(image, 64, 64, type);
-        let dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '64.png';
-        let resp = await uploadFile(imageMin, dest);
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 64, 64, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '64.png';
+        var resp = await uploadFile(imageMin, dest);
         if (resp !== 'ok') {
             return;
         }
+
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 100, 100, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '100.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 32, 32, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '32.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 128, 128, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '128.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 256, 256, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '256.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+
+        dest = '../' + aGlaf.resursData + this.objDin.id + '/' + 'pic.png' ;
+        resp = await uploadFile(image, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
 
         dest = '../' + aGlaf.resursData + this.objDin.id + '/' + 'pic.' + type;
         resp = await uploadFile(image, dest);

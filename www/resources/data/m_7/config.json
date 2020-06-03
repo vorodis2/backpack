@@ -22,21 +22,21 @@
                 "l": "q3.jpg",
                 "name": "map",
                 "rx": 1,
-                "ry": 1
+                "ry": "1"
             },
             {
                 "link": "resources/data/m_7/textur/q3.jpg",
                 "l": "q3.jpg",
                 "name": "bumpMap",
                 "rx": 1,
-                "ry": 1
+                "ry": "-1"
             },
             {
                 "link": "resources/data/m_7/textur/q3.jpg",
                 "l": "q3.jpg",
                 "name": "lightMap",
                 "rx": 1,
-                "ry": 1
+                "ry": "-1"
             }
         ],
         "emissive": "#000000",

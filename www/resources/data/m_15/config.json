@@ -4,7 +4,7 @@
     "key": "MeshPhongMaterial",
     "obj": {
         "type": "MeshPhongMaterial",
-        "color": "#fb4444",
+        "color": "#ffffff",
         "skinning": false,
         "flatShading": false,
         "depthFunc": 3,
@@ -24,7 +24,10 @@
                 "rx": 1,
                 "ry": 1
             }
-        ]
+        ],
+        "emissive": "#000000",
+        "specular": "#111111",
+        "shininess": 30
     },
     "mirro": false,
     "resurs": {

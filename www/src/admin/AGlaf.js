@@ -72,7 +72,7 @@ function AGlaf(main) {
 
 
     this.save=function(){        
-        this.s.saveTime()
+        this.s.saveTime();
     }
     this.s=new Save(this);
     this.menu;

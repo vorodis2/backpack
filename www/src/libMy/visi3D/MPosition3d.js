@@ -35,19 +35,6 @@ export default function MPosition3d (_parent, _content2d, _div) {
 	this.isDragPan = _parent._isDragPan;
 	this.isRotateScene = false;
 
-	this.time=500;
-	this.tween = new TWEEN.Tween(_parent);
-	this.tween.easing(TWEEN.Easing.Exponential.Out)
-
-	this.tween1 = new TWEEN.Tween(_parent);
-	this.tween1.easing(TWEEN.Easing.Exponential.Out)
-
-	var bW=false;
-	var bs=0;
-	this.tween1.onComplete(function(){
-		bW=false;
-	})
-
 	var sceneRotationY = 0;
 	this.isIE=false
 	if (navigator.userAgent.indexOf('MSIE') !== -1 ||navigator.appVersion.indexOf('Trident/') > 0) {
@@ -79,65 +66,26 @@ export default function MPosition3d (_parent, _content2d, _div) {
 			return;
 		}
 		if(e.touches==undefined){
-			
 			if (self.isRotateScene && e.data.originalEvent.shiftKey) {
 				self.parent.scene.rotation.y = sceneRotationY + (e.clientX - self.point1.x) * 0.01;
 				self.parent.intRend = 1;
 			} else {
 
 				if(self.boolDrahXZ){
-					let xx=self.point.y - (e.clientY - self.point1.y) * 0.01;
-
-
-					xx = self.point.y - (e.clientY - self.point1.y) * 0.01;
-					
-					if (self.minMaxX.x > self.parent.rotationX) xx = self.minMaxX.x;
-					if (self.minMaxX.y < self.parent.rotationX) xx = self.minMaxX.y;
-
-
-					let yy=self.point.x + (e.clientX - self.point1.x) * 0.01;
-
-					//self.parent.rotationX = xx;
-					//self.parent.rotationZ = yy;
-
-					self.tween.stop()
-					self.tween.to({
-						rotationX:xx,
-						rotationZ:yy
-					},self.time).start();
-
-					
-
+					self.parent.rotationX = self.point.y - (e.clientY - self.point1.y) * 0.01;
+					if (self.minMaxX.x > self.parent.rotationX) self.parent.rotationX = self.minMaxX.x;
+					if (self.minMaxX.y < self.parent.rotationX) self.parent.rotationX = self.minMaxX.y;
+					self.parent.rotationZ = self.point.x + (e.clientX - self.point1.x) * 0.01;
 				}				
 			}
-
 		}else{
 			if(e.touches.length==1){
 
 				if(self.boolDrahXZ){
-					let xx=self.point.y - (e.touches[0].clientY - self.point1.y) * 0.01;
-
-
-					xx = self.point.y - (e.touches[0].clientY - self.point1.y) * 0.01;
-					
-					if (self.minMaxX.x > self.parent.rotationX) xx = self.minMaxX.x;
-					if (self.minMaxX.y < self.parent.rotationX) xx = self.minMaxX.y;
-
-
-					let yy=self.point.x + (e.touches[0].clientX - self.point1.x) * 0.01;
-					self.tween.stop()
-					self.tween.to({
-						rotationX:xx,
-						rotationZ:yy
-					},self.time).start();
-					
-					/*self.parent.rotationX = self.point.y - (e.touches[0].clientY - self.point1.y) * 0.01;
+					self.parent.rotationX = self.point.y - (e.touches[0].clientY - self.point1.y) * 0.01;
 					if (self.minMaxX.x > self.parent.rotationX) self.parent.rotationX = self.minMaxX.x;
 					if (self.minMaxX.y < self.parent.rotationX) self.parent.rotationX = self.minMaxX.y;
-					self.parent.rotationZ = self.point.x + (e.touches[0].clientX - self.point1.x) * 0.01;*/
-
-
-
+					self.parent.rotationZ = self.point.x + (e.touches[0].clientX - self.point1.x) * 0.01;
 				} 
 				
 				
@@ -273,16 +221,8 @@ export default function MPosition3d (_parent, _content2d, _div) {
 			if(e.wheelDelta>0)delta=-1;
 			else delta=1;
 		}
-		if(bW==false){
-			bW=true
-			bs=self.parent._zume;
-		}
 
-
-		/*bW=false;
-		bs=0;*/
-
-		www = bs + (delta) * (self.powerZum/100)*self.parent._zume;
+		www = self.parent._zume + (delta) * (self.powerZum/100)*self.parent._zume;
 		self.zumNEW(www)
 		
 		if(self.dragscrol)self.dragscrol(e)
@@ -292,13 +232,7 @@ export default function MPosition3d (_parent, _content2d, _div) {
 	this.zumNEW = function (www) {
 		if (www < self.minZum) www = self.minZum;
 		if (www > self.maxZum) www = self.maxZum;
-		bs=www;
-
-		self.tween1.stop()
-		self.tween1.to({
-			zume:bs
-		},self.time).start();
-		//self.parent.zume = www;
+		self.parent.zume = www;
 		self.parent.intRend = 1;
 	}
 
