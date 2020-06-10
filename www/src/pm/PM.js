@@ -16,23 +16,24 @@ export function PM(visi3D, objbase) {
     this.loaderGLTF = new THREE.GLTFLoader();
 
 
+
     this.tex = new PMTexture(this, visi3D, objbase);
     this.mat=new PMMat(this, visi3D, objbase);
     this.filt=new PMFilt(this, visi3D, objbase);
     this.iz=new PMIz(this, visi3D, objbase);
 
-
-    this.arrayHron=[];   
-
+    this.arrayHron=[];    
 
     this.getId=function(idObj,fun,bClaen){
         if(bClaen==true){//Стартуем занново
             for (var i = 0; i < this.arrayHron.length; i++) {            
                 if(this.arrayHron[i].testId(idObj)==true){
-                    this.arrayHron.splice(i,1);
+                    this.arrayHron.splice(i,1)                    
                 }
             }
-        } 
+        }    
+
+
 
 
         for (var i = 0; i < this.arrayHron.length; i++) {            

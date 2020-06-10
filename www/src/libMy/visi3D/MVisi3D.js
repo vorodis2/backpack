@@ -63,6 +63,9 @@ export function MVisi3D (_contentHTML, _content2d, _devas, _directional, _efect,
 	this.graphics = undefined;
 
 
+	
+
+
 	if (_content2d != undefined) {
 		this.content = eval('new PIXI.Container()');
 		this.graphics = eval('new PIXI.Graphics()');

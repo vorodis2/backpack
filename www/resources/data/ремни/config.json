@@ -1,0 +1,37 @@
+{
+    "id": "ремни",
+    "title": "title_ремни",
+    "key": "MeshPhongMaterial",
+    "obj": {
+        "type": "MeshPhongMaterial",
+        "color": "#0c0c0c",
+        "skinning": false,
+        "flatShading": false,
+        "depthFunc": 3,
+        "blending": 1,
+        "side": 2,
+        "opacity": 1,
+        "transparent": false,
+        "alphaTest": 0,
+        "wireframe": false,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "textur": [
+            {
+                "link": "resources/data/ремни/textur/amila2.jpg",
+                "l": "amila2.jpg",
+                "name": "normalMap",
+                "rx": "6",
+                "ry": "6"
+            }
+        ],
+        "specular": "#b0b0b0",
+        "shininess": 0,
+        "emissive": "#000000"
+    },
+    "mirro": 0,
+    "resurs": {
+        "array": []
+    },
+    "orig": "xz.png"
+}

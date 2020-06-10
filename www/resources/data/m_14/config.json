@@ -4,7 +4,7 @@
     "key": "MeshPhongMaterial",
     "obj": {
         "type": "MeshPhongMaterial",
-        "color": "#3efd49",
+        "color": "#0a0a0a",
         "skinning": false,
         "flatShading": false,
         "depthFunc": 3,
@@ -18,15 +18,18 @@
         "refractionRatio": 0.98,
         "textur": [
             {
-                "id": "t_1",
-                "name": "map"
+                "link": "resources/data/m_14/textur/amila2.jpg",
+                "l": "amila2.jpg",
+                "name": "bumpMap",
+                "rx": "9",
+                "ry": "9"
             }
         ],
         "emissive": "#000000",
-        "specular": "#111111",
-        "shininess": 30
+        "specular": "#fdfdfd",
+        "shininess": 1.87
     },
-    "mirro": false,
+    "mirro": 0,
     "resurs": {
         "array": []
     },

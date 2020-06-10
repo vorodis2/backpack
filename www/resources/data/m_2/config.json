@@ -1,6 +1,6 @@
 {
     "id": "m_2",
-    "title": "title_m_2",
+    "title": "пряжки",
     "key": "MeshPhongMaterial",
     "obj": {
         "type": "MeshPhongMaterial",
@@ -16,18 +16,10 @@
         "wireframe": false,
         "reflectivity": 1,
         "refractionRatio": 0.98,
-        "textur": [
-            {
-                "link": "resources/data/m_2/textur/normal2.jpg",
-                "l": "normal2.jpg",
-                "name": "normalMap",
-                "rx": "4",
-                "ry": "4"
-            }
-        ],
+        "textur": [],
         "emissive": "#000000",
-        "specular": "#111111",
-        "shininess": 30
+        "specular": "#545454",
+        "shininess": 218.42
     },
     "mirro": false,
     "resurs": {
