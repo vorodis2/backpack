@@ -1,5 +1,4 @@
 
-import { BlokMaterial } from './BlokMaterial.js';
 
 export class Backpack  {
     constructor(par, fun) {         
@@ -14,11 +13,6 @@ export class Backpack  {
         this._index = -1; 
         this.at=[]
         this.atan=[]
-        this.abd=[]
-        this.array=[]
-
-        this.image=new DImage(par.dCont,500,100,null);
-
         for (var j = 0; j < mainBig.objectBase.three.length; j++) {
             if(mainBig.objectBase.three[j].keyName&&mainBig.objectBase.three[j].keyName=="objArr"){
                 this.at=mainBig.objectBase.three[j].array;
@@ -26,22 +20,8 @@ export class Backpack  {
         }
 
         for (var i = 0; i < this.at.length; i++) {
-            this.atan[i]=["nullnull"]
-            if(this.at[i].keyName)this.atan[i]=this.at[i].keyName.split(",");            
+            this.atan[i]=this.at[i].keyName.split(",")
         }
-
-
-        for (var i = 0; i < this.at.length; i++) {            
-            let p=-1;
-            for (var j = 0; j < mainBig.objectBase.bd.length; j++) {
-                
-                if(this.at[i].id==mainBig.objectBase.bd[j].id){
-                    p=mainBig.objectBase.bd[j];
-                }
-            }
-            this.array[i]=new BlokMaterial(this,p,i);
-        }
-
 
 
 
@@ -52,20 +32,23 @@ export class Backpack  {
                 c3d.material=m;                
             }
         }
-        trace(mainBig.objectBase)
         
 
         this.creatMat=function(c3d){  
             for (var i = 0; i < c3d.children.length; i++) {
                 for (var j = 0; j < self.atan.length; j++) {
-                    if(self.atan[j].indexOf(c3d.children[i].name)!=-1){                         
-                        this.array[j].addChild(c3d.children[i]);
+                    if(self.atan[j].indexOf(c3d.children[i].name)!=-1){ 
+                        c3d.children[i].color="#ffffff";
+
+                        this.matNaC3d(c3d.children[i],self.at[j].array[0].id);
                     }
                 }                
             }
         }
 
+
         this.c3d;
+
 
         this.par.pm.getId(15, function(_c3d){ 
             self.c3d =  _c3d               
@@ -86,34 +69,22 @@ export class Backpack  {
         }
 
         this.redrag1=function(num){
-            let idMat=self.at[this._index].array[num].id;
-            let link="null"
-           /* for (var i = 0; i < Things.length; i++) {
-                Things[i]
-            }*/
-            
-
-            link="resources/data/"+idMat+"/pic.png";
-            this.array[this._index].array[0].link=link
-            trace(num,idMat,link);
-            //this.array[this._index]
-            
-            /*for (var i = 0; i < self.c3d.children.length; i++) {
+            for (var i = 0; i < self.c3d.children.length; i++) {
                 if(self.atan[this._index].indexOf(self.c3d.children[i].name)!=-1){  
                     this.matNaC3d(self.c3d.children[i],self.at[this._index].array[num].id);
                 }
-            }*/
+            }
         }
      
         this.setColor=function(color){
-            self.array[this._index].color=color;
-           /* for (var i = 0; i < self.c3d.children.length; i++) {
+
+            for (var i = 0; i < self.c3d.children.length; i++) {
                 if(self.atan[this._index].indexOf(self.c3d.children[i].name)!=-1){ 
                     self.c3d.children[i].color=color; 
                     self.c3d.children[i].material.color=new THREE.Color(color);
                 }
             }
-            self.par.visi3D.intRend=1*/
+            self.par.visi3D.intRend=1
 
         }
 
@@ -171,7 +142,7 @@ export class Backpack  {
     set index(value) {
         if (this._index != value) {
 
-           /* for (var i = 0; i < this.c3d.children.length; i++) {
+            for (var i = 0; i < this.c3d.children.length; i++) {
                 if(this.atan[this._index]){
                     if(this.atan[this._index].indexOf(this.c3d.children[i].name)!=-1){ 
                         this.c3d.children[i].material.emissive.r=0;
@@ -179,16 +150,11 @@ export class Backpack  {
                         this.c3d.children[i].material.emissive.b=0;
                     }
                 } 
-            }*/
+            }
 
             this._index = value;
 
-            if(this.atan[this._index]==undefined){
-                visi3D.arrOut=[]
-            }else{                
-                visi3D.arrOut=this.array[this._index].children
-            }/**/
-           /* let p=0.5
+            let p=0.5
             
             for (var i = 0; i < this.c3d.children.length; i++) {
                 if(this.atan[this._index]){
@@ -199,7 +165,7 @@ export class Backpack  {
 
                     }
                 } 
-            }*/
+            }
 
 
         }           

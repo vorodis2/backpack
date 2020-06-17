@@ -1,0 +1,41 @@
+{
+    "id": "back_material",
+    "title": "title_back_material",
+    "key": "MeshPhongMaterial",
+    "obj": {
+        "type": "MeshPhongMaterial",
+        "color": "#222222",
+        "skinning": false,
+        "flatShading": false,
+        "depthFunc": 3,
+        "blending": 0,
+        "side": 0,
+        "opacity": 1,
+        "transparent": false,
+        "alphaTest": 0,
+        "wireframe": false,
+        "reflectivity": 0.26,
+        "refractionRatio": 1,
+        "textur": [
+            {
+                "link": "resources/data/back_material/textur/amila.jpg",
+                "l": "amila.jpg",
+                "name": "bumpMap",
+                "rx": "6",
+                "ry": "6"
+            }
+        ],
+        "roughness": 0.68,
+        "metalness": 0.4,
+        "clearCoat": 0.16,
+        "clearCoatRoughness": 0.39,
+        "emissive": "#000000",
+        "envMapIntensity": 0,
+        "specular": "#636363"
+    },
+    "mirro": 0,
+    "resurs": {
+        "array": []
+    },
+    "orig": "xz.png"
+}

@@ -22,21 +22,21 @@
                 "l": "q3.jpg",
                 "name": "map",
                 "rx": 1,
-                "ry": "1"
+                "ry": 1
             },
             {
                 "link": "resources/data/m_7/textur/q3.jpg",
                 "l": "q3.jpg",
                 "name": "bumpMap",
                 "rx": 1,
-                "ry": "-1"
+                "ry": 1
             },
             {
                 "link": "resources/data/m_7/textur/q3.jpg",
                 "l": "q3.jpg",
                 "name": "lightMap",
                 "rx": 1,
-                "ry": "-1"
+                "ry": 1
             }
         ],
         "emissive": "#000000",
@@ -47,5 +47,10 @@
     "resurs": {
         "array": []
     },
-    "orig": "xz.png"
+    "orig": "xz.png",
+    "iz": {
+        "a": true,
+        "st": false,
+        "str": "{|xVerh|:0,|yVerh|:-24,|zVerh|:0,|rotationX|:0.94,|rotationZ|:0.19000000000000003,|zume|:85.32001384146898}"
+    }
 }

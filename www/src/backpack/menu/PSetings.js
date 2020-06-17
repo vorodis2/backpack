@@ -49,9 +49,6 @@ export class PSetings extends MOBaza {
                             }
                             var o=JSON.parse(ss)
                             
-                            o.rotationZ=o.rotationZ%(Math.PI*2)
-                            visi3D.rotationZ=visi3D.rotationZ%(Math.PI*2)
-                            
 
                             self.tween.stop()
                             self.tween.to(o,self.time).start();
