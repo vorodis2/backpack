@@ -1,0 +1,21 @@
+{
+    "id": 23,
+    "title": 23,
+    "key": "o_23",
+    "orig": "xz.png",
+    "mod": {
+        "key": "gltf",
+        "name": "Wide (5).gltf"
+    },
+    "param": {
+        "tOt": false,
+        "tNa": false,
+        "rO": -1,
+        "kesh": false,
+        "sG": false,
+        "clone": true
+    },
+    "resurs": {
+        "array": []
+    }
+}

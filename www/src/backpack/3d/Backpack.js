@@ -17,7 +17,7 @@ export class Backpack  {
         this.abd=[]
         this.array=[]
 
-        this.image=new DImage(par.dCont,500,100,null)
+        this.image=new DImage(par.dCont,500,100,null);
 
         for (var j = 0; j < mainBig.objectBase.three.length; j++) {
             if(mainBig.objectBase.three[j].keyName&&mainBig.objectBase.three[j].keyName=="objArr"){
@@ -91,6 +91,7 @@ export class Backpack  {
            /* for (var i = 0; i < Things.length; i++) {
                 Things[i]
             }*/
+            
 
             link="resources/data/"+idMat+"/pic.png";
             this.array[this._index].array[0].link=link

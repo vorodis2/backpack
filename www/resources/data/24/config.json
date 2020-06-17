@@ -1,0 +1,21 @@
+{
+    "id": 24,
+    "title": 24,
+    "key": "o_24",
+    "orig": "null",
+    "mod": {
+        "key": "glb",
+        "name": "Thin_Glb.glb"
+    },
+    "param": {
+        "tOt": false,
+        "tNa": false,
+        "rO": -1,
+        "kesh": false,
+        "sG": false,
+        "clone": true
+    },
+    "resurs": {
+        "array": []
+    }
+}
