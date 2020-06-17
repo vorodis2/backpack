@@ -5,7 +5,7 @@
     "orig": "xz.png",
     "mod": {
         "key": "glb",
-        "name": "rrr.glb"
+        "name": "Backpack_my.glb"
     },
     "filt": [],
     "param": {
@@ -54,5 +54,10 @@
             "0",
             "0"
         ]
+    },
+    "iz": {
+        "a": true,
+        "st": true,
+        "str": "{|xVerh|:0,|yVerh|:-24,|zVerh|:0,|rotationX|:0.8600000000000001,|rotationZ|:1.7399999999999998,|zume|:110.26378359374999}"
     }
 }

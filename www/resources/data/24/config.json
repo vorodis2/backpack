@@ -4,12 +4,8 @@
     "key": "o_24",
     "orig": "null",
     "mod": {
-        "key": "glb",
-<<<<<<< HEAD
-        "name": "Thin_Glb.glb"
-=======
-        "name": "Backpack_my.glb"
->>>>>>> 2124a6bfbba39fe0c1a1e9bd952b1ca0e1ba9906
+        "key": "n",
+        "name": "n"
     },
     "param": {
         "tOt": false,

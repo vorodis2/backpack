@@ -2,27 +2,15 @@
     "id": 25,
     "title": 25,
     "key": "o_25",
-<<<<<<< HEAD
     "orig": "null",
     "mod": {
-        "key": "glb",
-        "name": "thin-nostiches_glb.glb"
+        "key": "n",
+        "name": "n"
     },
     "param": {
         "tOt": false,
         "tNa": false,
         "rO": -1,
-=======
-    "orig": "xz.png",
-    "mod": {
-        "key": "glb",
-        "name": "Backpack_my.glb"
-    },
-    "param": {
-        "tOt": false,
-        "tNa": true,
-        "rO": 5,
->>>>>>> 2124a6bfbba39fe0c1a1e9bd952b1ca0e1ba9906
         "kesh": false,
         "sG": false,
         "clone": true
