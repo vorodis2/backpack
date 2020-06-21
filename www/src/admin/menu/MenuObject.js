@@ -67,6 +67,9 @@ function MenuObject(menu, fun) {
                 php.savePhoto(lll, p[i]);
             } 
             menu.menuBD.redragTime();           
+        }
+        if(s=="setColor"){
+            
         }        
     }) 
 
@@ -74,7 +77,13 @@ function MenuObject(menu, fun) {
 
 
 
-    this.mBas=new MBas(this.content, this.otstup, this.mBPic.y+this.mBPic.height+this.otstup, function(s){        
+    this.mBas=new MBas(this.content, this.otstup, this.mBPic.y+this.mBPic.height+this.otstup, function(s){   
+
+        if(s=="dragColorGal"){
+            trace(menuBig.matBD)
+            menuBig.menuBD.dragColorGal()
+        }
+
         aGlaf.save();
         self.saveTime();
     }) 
@@ -105,6 +114,20 @@ function MenuObject(menu, fun) {
         }
         self.saveTime();
     })
+
+    this.mBLOt=new MBLOt(this,this.content, this.otstup, 220, function(s){       
+        if(s=="drag3DRects"){
+           fun(s);
+        }
+        if(s=="saveKey"){            
+            self.saveTime();
+        }
+        if(s=="reDrahObj"){
+            self.setObj(self.obj);
+        }
+        self.saveTime();
+    })
+
 
     /*this.mFilt=new MFilt(this,this.content, this.otstup, 220, function(s, p){      
         if(s=="saveKey"){            
@@ -141,7 +164,7 @@ function MenuObject(menu, fun) {
         self.saveTime();   
     })*/
 
-
+    //this.mIndex.plus(this.mBLOt.dCont,"src/admin/icon/info.png")
     this.mIndex.plus(this.mBasLLL.dCont,"src/admin/icon/info.png")
     this.mIndex.plus(this.mBase.dCont,"src/admin/icon/xz1.png")
     this.mIndex.plus(this.mResurs.dCont,"src/admin/icon/i1.png")
@@ -176,6 +199,7 @@ function MenuObject(menu, fun) {
         this.mMod.setObj(this.object);
        // this.mFilt.setObj(this.object);
         this.mBase.setObj(this.object);
+        this.mBLOt.setObj(this.object);
        // this.mPRS.setObj(this.object);
 
         //this.mText.setObj(this.object);
@@ -524,6 +548,321 @@ function MMod(c,x,y,f) {
 
 
 
+function MBLOt(p,c,x,y,f) { 
+ var self=this   
+    this.type="MBLOt";
+    self.fun=f
+    this.par=p
+    this.otstup=aGlaf.otstup;
+    this.wh=aGlaf.wh;
+    this.whv=aGlaf.whv;
+    this.widthBig=aGlaf.widthBig;
+    this.dCont=new DCont(c);
+    this.dCont.visible=false
+    this.dCont.x=x;
+    this.dCont.y=y;
+    this.o=undefined;
+    this.o1=undefined;
+    this.y=y
+
+    this.keyName="iNum";
+    this.panel=new DPanel(this.dCont, 0, 0)
+    this.panel.width=this.widthBig-this.otstup*3;
+    this.height=this.panel.height=94;
+
+    var sah=this.otstup;
+    var sahPlus=34;
+ 
+    var kolObj=4;
+
+
+    this.drag=function(){
+        self.drag1()
+    }
+    this.drag1=function(){    
+        for (var i = 0; i < kolObj; i++) {
+            if(this.aBool[i].value==true) this.o.bool[i]=1;
+            else this.o.bool[i]=0;
+        }
+        for (var i = 0; i < kolObj; i++) {
+            this.o.num[i]=this.aNum[i].value*1;        
+        }
+        for (var i = 0; i < kolObj; i++) {
+            this.o.str[i]=this.aStr[i].value;          
+        }
+        self.fun();
+    }    
+
+             
+     
+
+
+
+    this.dragOt=function(){
+        if(this.o[this.keyName]!=undefined)if(this.o[this.keyName].active==false){
+            delete this.o[this.keyName]
+        }
+        /*if(this.o[this.keyName]==undefined){
+            self.batACreat.text="создать инфу" 
+            self.panel.visible=false;   
+            return
+        }else{
+            self.batACreat.text="удалить инфу";
+            self.panel.visible=true 
+        }*/
+
+        for (var i = 0; i < kolObj; i++) {
+            if(this.o.bool[i]==0) this.aBool[i].value=false;
+            else this.aBool[i].value=true;
+        }
+
+
+        for (var i = 0; i < kolObj; i++) {
+            this.aNum[i].value=this.o.num[i];           
+        }       
+
+
+
+
+        for (var i = 0; i < kolObj; i++) {
+            if(this.o.str[i]==undefined)this.o.str[i]="0"
+            this.aStr[i].value=this.o.str[i];           
+        }
+
+
+        this.sPriority.value=self.o.priority
+        this.sBagY.value=self.o.bagY
+        
+        for (var i = 0; i < this.o.mod.r.length; i++) {
+            this.ar[i].value=Math.round(this.o.mod.r[i]*1000)/1000
+            this.ar1[i].value=Math.round(this.o.mod.r1[i]*1000)/1000
+        }
+    }
+
+
+    var w=70;
+    var ss=0;   
+
+    ////////////////////////////////////////////////
+    this.dragR=function(){
+
+        for (var i = 0; i < self.o.mod.r.length; i++) {            
+            self.o.mod.r[i] = self.ar[i].text*1;
+            self.o.mod.r1[i] = self.ar1[i].text*1;
+        }
+        self.fun("saveKey"); 
+        self.fun("drag3DRects");        
+    }
+
+
+
+    var sahPlus=24;
+    var w=(this.panel.width-this.otstup*2)/6-this.otstup;
+    this.ar=[];    
+
+
+    for (var i = 0; i < 6; i++) {
+        this.ar[i]=new DInput(this.panel,this.otstup+i*(w+this.otstup), sah,i+" ",this.dragR);
+        this.ar[i].height=20;
+        this.ar[i].idArr=i;
+        this.ar[i].width=w; 
+        this.ar[i].fontSize=10; 
+        this.ar[i].okrug=1000
+        this.ar[i].setNum(0.1);
+    }
+    sah+=20+this.otstup;
+
+    this.ar1=[];
+    for (var i = 0; i < 6; i++) {
+        this.ar1[i]=new DInput(this.panel,this.otstup+i*(w+this.otstup), sah,i+" ",this.dragR);
+        this.ar1[i].height=20;
+        this.ar1[i].idArr=i;
+        this.ar1[i].width=w;  
+        this.ar1[i].fontSize=10;
+        this.ar1[i].okrug=1000   
+        this.ar1[i].setNum(0.1);  
+    }
+    sah+=20+this.otstup;
+
+    this.buttonRect=new DButton(this.panel,this.otstup, sah, "get rect",function(){        
+        var a=aGlaf.s3d.sMod.getRect();  
+              
+        if(a[0]==Infinity){
+            for (var i = 0; i < 6; i++) {
+                self.o.mod.r[i] = self.ar[i].text= 0;
+                self.o.mod.r1[i] = self.ar1[i].text= 0;
+            } 
+        }else{
+            for (var i = 0; i < 6; i++) {
+                self.o.mod.r[i] = self.ar[i].text= Math.round(a[i]*1000)/1000;
+                self.o.mod.r1[i] = self.ar1[i].text= Math.round(a[i]*1000)/1000;
+            } 
+        }
+        
+        self.fun("drag3DRects"); 
+        self.fun("saveKey"); 
+    })
+    this.buttonRect.width=186;
+    this.buttonRect.height=20;
+    sah+=this.buttonRect.height+this.otstup*2;
+
+
+
+    //////////////////////////////////////////
+
+
+    
+    w=70;
+
+    this.lbool=new DLabel(this.panel,this.otstup,sah+9,"bool");
+    this.aBool=[];
+    ss=0
+    for (var i = 0; i < kolObj; i++) {
+        this.aBool[i]=new DCheckBox(this.panel,45+i*37, sah,i+" ",this.drag);
+        this.aBool[i].idArr=i
+        this.aBool[i].width=w;
+        ss++
+        if(ss==4){
+           ss=0;
+           sah+=sahPlus;
+        }
+    }
+
+    sah+=this.otstup;
+   // sah+=sahPlus;
+
+
+    this.lnum=new DLabel(this.panel,this.otstup,sah+9,"num");
+    this.aNum=[];
+    ss=0
+    for (var i = 0; i < kolObj; i++) {
+        this.aNum[i]=new DInput(this.panel,45+ss*(w+this.otstup), sah,"0",this.drag);
+        this.aNum[i].idArr=i
+        this.aNum[i].width=w;
+        this.aNum[i].height=sahPlus-2;
+        ss++
+        if(ss==2){
+           ss=0;
+           sah+=sahPlus;
+        }
+    }
+
+    this.lstr=new DLabel(this.panel,this.otstup,sah+9,"str");
+    this.aStr=[];
+    ss=0
+    for (var i = 0; i < kolObj; i++) {
+        this.aStr[i]=new DInput(this.panel,45+ss*(w+this.otstup), sah,i+" ",this.drag);
+        this.aStr[i].idArr=i
+        this.aStr[i].width=w;
+        this.aStr[i].height=sahPlus-2;
+        ss++;
+        if(ss==2){
+           ss=0;
+           sah+=sahPlus;
+        }
+    } 
+
+    
+
+    this.sBagY=new DSliderBig(this.panel, 2, sah, function(){
+        self.o.bagY=this.value;
+        self.dragOt();
+        self.fun();
+    }, "bagY", -100, 100);
+    this.sBagY.okrug=100;
+    this.sBagY.width=this.panel.width-8
+
+    sah+=50
+
+
+    this.sPriority=new DSliderBig(this.panel, 2, sah, function(){
+        self.o.priority=this.value;
+        self.dragOt();
+        self.fun();
+    }, "priority", 0, 100);
+    this.sPriority.okrug=1;
+    this.sPriority.width=this.panel.width-8;
+
+    sah+=50
+
+    this.height=this.panel.height=sah+this.otstup;
+
+
+
+   
+    this.creat = function(b){ 
+        if(b==true){
+            this.o[this.keyName]={}
+           //this.o[this.keyName].active=true; 
+            this.o[this.keyName].rect=[0,0,0,0,0,0];
+            this.o[this.keyName].rect1=[0,0,0,0,0,0];
+            this.o[this.keyName].bool=[0,0,0,0];
+            this.o[this.keyName].num=[0,0,0,0];
+            this.o[this.keyName].str=["0","0","0","0"];
+        }else{
+            delete this.o[this.keyName]
+            /*this.o[this.keyName].active=false;
+            delete this.o[this.keyName].rect;
+            delete this.o[this.keyName].rect1;
+            delete this.o[this.keyName].bool;
+            delete this.o[this.keyName].num;
+            delete this.o[this.keyName].str;*/
+        }
+        this.dragOt(); 
+        self.fun("saveTime"); 
+    }
+
+   /* this.batACreat=new DButton(this.dCont, this.otstup, this.otstup,"создать инфу",function(){
+        if(self.panel.visible==true){
+            self.par.par.mInfo.setFun("Очистка инфы","Информация будет удолена безвозвратно",function(){              
+                self.batACreat.text="создать инфу" 
+                self.panel.visible=false; 
+                self.creat(false)               
+            }
+        );                   
+        }else{
+            self.creat(true)
+            self.batACreat.text="удалить инфу";
+            self.panel.visible=true 
+        }
+    })
+    this.batACreat.width=186 */
+
+    this.panel.y=-4
+
+   
+
+
+
+
+
+    this.setObj= function(o){       
+        this.o=o;
+        
+        let b=false
+        if(this.o.bool==undefined){
+            b=true
+            this.o.bool=[0,0,0,0]
+            this.o.num=[0,0,0,0]
+            this.o.str=["0","0","0","0"]
+            this.o.mod.r=[0,0,0,0,0,0];
+            this.o.mod.r1=[0,0,0,0,0,0];
+        }
+        if(b==true)self.fun("saveTime"); 
+
+        /*if(this.o[this.keyName]==undefined){
+            this.o[this.keyName]={active:false} 
+            self.fun("saveTime"); 
+            return
+        }*/
+        this.dragOt();       
+    }
+
+
+}
+
+
+
 
 
 
@@ -555,7 +894,7 @@ function MBasLLL(p,c,x,y,f) {
     var sah=this.otstup;
     var sahPlus=34;
  
-    var kolObj=4
+    var kolObj=4;
 
 
     this.drag=function(){
@@ -795,6 +1134,7 @@ function MBasLLL(p,c,x,y,f) {
 
     this.setObj= function(o){       
         this.o=o;
+        trace(o)
 
         /*if(this.o[this.keyName]==undefined){
             this.o[this.keyName]={active:false} 
@@ -864,6 +1204,41 @@ function MBas(c,x,y,f) {
     this.ikey.width=this.panel.width-30-this.otstup*2
     sah+=sahPlus;
 
+
+
+
+    this.buttonColor=new DButton(this.panel,this.panel.width-16-4,this.otstup,"",function(base64){
+        
+        if(self.dColor.visible==true){
+
+            self.o1.c=undefined
+            delete self.o1.c
+            self.fun()
+            self.dColor.visible=false;
+        }else{
+
+            self.dColor.value="#000000";
+            self.dColor.visible=true;
+            self.o1.c=self.dColor.value
+            self.fun()
+        }
+
+    },'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEhUlEQVRYR+2VbUhbZxTHz3NvvPGaaGJ8YS4FBw0IE8ThvBCiSUSkLajZOty06gc7cWxCmSxzpon4Eq1xrbDVgXXttDBWKyL4ZVVY19ybD3Nskw1GdTJmlMa6F2uiTa/JTbzPCCjsgy9X/SCDPl+f8/zP7/zvOeciOOGDTjg/PAf4/ztgNptTAeAdjPHfHMfdPGxPHcsBg8GQKJPJRhFC57YTt7Is23UYiCMDxCrHGA8mnXrpzKOLDqz68QGFpkYiANDGsmyfVIgjAZjNZjUA3FUqlUabsye8fOrlxNtXu0WNjOAf/8AliNHIxyzLOqRAHBqAYZgUmqYHNBrNWZvNFsnPz1f3PY6iO08iW78S8aT+t+8E2WAHEQ2Hez0eT+tBEIcC0Ov1GoqiRlQqlcHpdEZycnJUAIACWwD+LYDLywDjPMbnVv/YDHa9R4rRyAssywb2g5AMsJ38BgC8Ybfbl0tKSrQAQPxX/P1HAJ9uAJx/6ObXBjoTMMa/A8Awx3FXASC6G4gkgIKCgmSSJO8qFApTJBKRMQwTsNvtNE3TCTui/BZAxjzA6cBKKKXzbSpOodx6se7Dp97rDjoaDrV6PJ5dG1MSgNlsrsYYD/X09PyTkZEhtrS0aLKzs9etVmsSTdPKGMT9dQDLooCLR69tRSICCBcuRR9QmvjX7n3OB+6NCCzLJh/ZgaKiIgPG+GuLxSI0NjYmLSwsPHU4HAlZWVmbdrtdHh9PKy+tAPz5y0x4LRRG5w168hUFQr3ffr+2+YVLEV73N3k8nsEjA8QeGo3GcoIgbtXX1/PV1dWZXq/X19zcrMnJyQl8YLWqrwXphLhnYaE4VU69miCKExMTT/r7+5NFUezyeDxOABCPBRB7bDKZLsvl8o6pqSmMEIqbn59fbWtro3U6XcjaYqOUCkWiDIE4Nja2Mjw8rOZ5vlUQhBvT09Obe02CpB7Q6/V0XFycniTJWwzDKF0uV9qO4NLSkq+pqSk1NzfXb7VaVZOTk8H+/v7YouriOC5W+b7nQIDCwsI0giBcCKG3LBbLs7q6Otrv9wsTExOqzMzMzdLSUpnX6w22t7fTarVaWFxclPM83xkMBj+bmZnhjwNAGo3GMwihL7VabXxHR8eKTqc7HQqFNiorK8n19XU/AKgqKioC9fX16UNDQ8Lo6CiFMe7kOO7KQYl37nd1QKfTybVarVMul18sKyuLVlVV0SkpKYnRaDTU3d0ddLvdSwih1zHGeoTQ9by8PNns7CzN8/yVYDD4iZTK9wUwGo0XCIL4yuFw/JWXl5dG0zSiKAq53e4Nl8slFwShjOO4b2IihYWFxSRJ9omiOLDXqB16FZtMpl6CIJrHx8cDNTU1dHl5eaS2tjbc0NBA+Hy+mxzHfSTV4oPidv0EZrM59it1Tk5Orvp8PjE9PZ2y2Wzk7OzsQwAoY1l29SBhqfe7AhgMhmyZTHafYZh4hmGS5ubmNliWJUVRfJNl2Smp4lLi9hzD7fG7DQBnEUI/Y4zf5TjuJwDAUoSlxhy4B6QKHTXuOcBzB07cgX8B+4HTMGa/rP4AAAAASUVORK5CYII=')
+    this.buttonColor.width=16;
+    this.buttonColor.height=16;
+    this.buttonColor.panel1.alpha=0.2
+    this.buttonColor.panel.visible=false
+
+
+    this.dColor=new DColor(this.panel,this.panel.width,this.otstup,"",function(base64){        
+        self.o1.c=this.value
+        self.fun("dragColorGal");
+
+        
+    });
+    this.dColor.width=150
+
+
     this.setObjS= function(o, o1){ 
 
         this.o=o;
@@ -872,6 +1247,16 @@ function MBas(c,x,y,f) {
         this.lId.text="id: "+o.id;
         this.ikey.text=o.key;
         this.ititle.text=o.title;
+
+        if(o1.c==undefined){
+
+            this.dColor.value="#000000";
+            this.dColor.visible=false;
+        } else{
+
+            this.dColor.value=o1.c;
+            this.dColor.visible=true;
+        }  
     }
 }
 

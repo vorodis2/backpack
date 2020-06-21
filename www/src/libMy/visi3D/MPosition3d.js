@@ -35,7 +35,7 @@ export default function MPosition3d (_parent, _content2d, _div) {
 	this.isDragPan = _parent._isDragPan;
 	this.isRotateScene = false;
 
-	this.time=500;
+	this.time=200;
 	this.tween = new TWEEN.Tween(_parent);
 	this.tween.easing(TWEEN.Easing.Exponential.Out)
 
@@ -97,14 +97,14 @@ export default function MPosition3d (_parent, _content2d, _div) {
 
 					let yy=self.point.x + (e.clientX - self.point1.x) * 0.01;
 
-					//self.parent.rotationX = xx;
-					//self.parent.rotationZ = yy;
+					self.parent.rotationX = xx;
+					self.parent.rotationZ = yy;
 
-					self.tween.stop()
+					/*self.tween.stop()
 					self.tween.to({
 						rotationX:xx,
 						rotationZ:yy
-					},self.time).start();
+					},self.time).start();*/
 
 					
 
@@ -125,11 +125,15 @@ export default function MPosition3d (_parent, _content2d, _div) {
 
 
 					let yy=self.point.x + (e.touches[0].clientX - self.point1.x) * 0.01;
-					self.tween.stop()
+
+					self.parent.rotationX = xx;
+					self.parent.rotationZ = yy;
+
+					/*self.tween.stop()
 					self.tween.to({
 						rotationX:xx,
 						rotationZ:yy
-					},self.time).start();
+					},self.time).start();*/
 					
 					/*self.parent.rotationX = self.point.y - (e.touches[0].clientY - self.point1.y) * 0.01;
 					if (self.minMaxX.x > self.parent.rotationX) self.parent.rotationX = self.minMaxX.x;

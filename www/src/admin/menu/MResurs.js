@@ -238,9 +238,25 @@ function IzStat(par, _cont, fun) {
     })
     this.button.width=this.button.height=this.height-this.otstup*2;
 
-    this.button1=new DButton(this.dCont,this.panel.width-(this.height-this.otstup)*3-this.otstup*2,this.otstup,">!>",function(){
+    this.button1=new DButton(this.dCont,this.panel.width-(this.height-this.otstup)*3-this.otstup*2,this.otstup,">>",function(){
         self.drag()        
-        //var o=aGlaf.s3d.getMod() 
+        var o=aGlaf.s3d.getMod()        
+        var s= JSON.stringify(o)
+        var ss=""
+        for (var i = 0; i < s.length; i++) {                
+            if(s[i]=='"')ss+='|'
+            else ss+=s[i]    
+        }
+        self.string=ss;
+        self.object.iz.str=ss;
+        self.setObj(self.object)      
+        fun()
+    })
+    this.button1.width=(this.height-this.otstup*2)*2
+    this.button1.height=this.height-this.otstup*2;
+
+    this.button2=new DButton(this.dCont,this.panel.width,this.otstup,">2",function(){
+        self.drag()
         var o=visi3D.getObj();
 
         var s= JSON.stringify(o)
@@ -253,10 +269,10 @@ function IzStat(par, _cont, fun) {
         self.object.iz.str=ss;
         self.setObj(self.object)      
         fun()
-
     })
-    this.button1.width=(this.height-this.otstup*2)*2
-    this.button1.height=this.height-this.otstup*2;
+    this.button2.width=(this.height-this.otstup*2)*2
+    this.button2.height=this.height-this.otstup*2;
+
 
     this.chek=new DCheckBox(this.dCont, 3, this.otstup+5,"a", function(){
         //self.drag()

@@ -49,7 +49,7 @@ function MenuThree(menu, fun) {
     this.gallery.widthPic=46;
     this.gallery.heightPic=46;
 
-    
+    this.oldRandom=-1
 
     this.par.dragPic.addDCont(this.w,function(o,l){        
         self.setObj(o)
@@ -67,6 +67,7 @@ function MenuThree(menu, fun) {
     }
 
     this.nazad=function(){
+
         if(self._arrayOld.length==0){
             self.ab[0].alpha=0.5;
             self._index=-1;
@@ -76,24 +77,50 @@ function MenuThree(menu, fun) {
             self.gallery.start(self._iArr);
             return;
         }
-        a=self.objectBase.three;            
-        for (var i = 0; i < self._arrayOld.length; i++) {                
-            a=a[self._arrayOld[i]].array;                
-            if(i==self._arrayOld.length-1){
-                self._iArr=a;
-                self.gallery.start(self._iArr);
-                self._arrayOld.splice(i,1)
-            }
-        } 
+        self.objectBase=self.par.objectBase;
+        self._iArr=self.getNazad(self.objectBase.three, self._arrayOld, 0);
+        self.gallery.start(self._iArr);
+        self._arrayOld.splice(self._arrayOld.length-1,1)
     } 
+
+    this.getNazad=function(array, aS, sah){
+        let a=array[aS[sah]].array
+        sah++;        
+        if(aS.length!=sah){
+            a=this.getNazad(a, aS, sah)
+        } 
+        return a;
+    }
+
+
+
+
+
 
     var a=[];
     this.down=function(){
         if(this.idArr==0){//nazad
+
             self.nazad()                                
         }
-        if(this.idArr==1){//убиваем            
-            
+        if(this.idArr==1){//убиваем 
+
+
+            function kill (){                            
+                var a=self.index;
+                self._index=-1;                    
+                var b=self._iArr.splice(a,1);            
+                self.gallery.start(self._iArr);
+                if(a>self.gallery.array.length-1)a=self.gallery.array.length-1;                     
+                self.index=a;
+                aGlaf.save();
+            }
+
+            if(aGlaf.durak==false){
+                kill()
+                return
+            }           
+
             self.par.mInfo.setFun("Удаление ветки дерева","Обьект/ветка будет удален из бд, окуратно!!!",
                 function(){ 
 
@@ -185,12 +212,15 @@ function MenuThree(menu, fun) {
 
     Object.defineProperty(this, "index", {
         set: function (value) {           
+            trace(value+"   "+this._index)
             if(this._index!=value){
                 this._index=value;
                 this.gallery.index=value;
+            }else{
 
-            }else{                
-                if(this.gallery.array[value]!=undefined){     
+                if(this.gallery.array[value]!=undefined){
+                     
+                   
                     this.ab[0].alpha=1;
                     if(this._iOld!=-1){
                         this._arrayOld.push(this._iOld);
@@ -199,12 +229,12 @@ function MenuThree(menu, fun) {
                     this._iArr = this.gallery.array[value].object.array;                                        
                     this.gallery.start(this._iArr);
                     this._index=-1
-                }
-                
+                } 
+
+
             } 
 
             if(this.gallery.array[this._index]!=undefined){
-
                 if(this.gallery.array[this._index].object.keyName==undefined)this.gallery.array[this._index].object.keyName="null"
                 this.input.text=this.gallery.array[this._index].object.keyName
                 this.input.visible=true

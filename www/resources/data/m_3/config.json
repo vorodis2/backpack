@@ -4,7 +4,7 @@
     "key": "MeshPhongMaterial",
     "obj": {
         "type": "MeshPhongMaterial",
-        "color": "#26bbf0",
+        "color": "#e21666",
         "skinning": false,
         "flatShading": false,
         "depthFunc": 3,
@@ -16,22 +16,60 @@
         "wireframe": false,
         "reflectivity": 1,
         "refractionRatio": 0.98,
-        "textur": [
-            {
-                "link": "resources/data/m_3/textur/normal2.jpg",
-                "l": "normal2.jpg",
-                "name": "normalMap",
-                "rx": "4",
-                "ry": "4"
-            }
-        ],
+        "textur": [],
         "emissive": "#080808",
-        "specular": "#202020",
-        "shininess": 30
+        "specular": "#e51477",
+        "shininess": 195.12
     },
-    "mirro": false,
+    "mirro": 1,
     "resurs": {
         "array": []
     },
-    "orig": "xz.png"
+    "orig": "xz.png",
+    "mod": {
+        "key": "n",
+        "name": "n",
+        "r": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "r1": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    "param": {
+        "tOt": false,
+        "tNa": false,
+        "rO": -1,
+        "kesh": false,
+        "sG": false,
+        "clone": true
+    },
+    "bool": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "num": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "str": [
+        "0",
+        "0",
+        "0",
+        "0"
+    ]
 }

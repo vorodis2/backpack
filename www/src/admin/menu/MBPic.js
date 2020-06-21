@@ -51,7 +51,7 @@ function MBPic(c,x,y,f) {
     } 
 
 
-    this.button=new DButton(this.panel,this.otstup,this.otstup," ",function(base64){        
+    this.button=new DButton(this.panel,this.otstup,this.otstup,"",function(base64){        
         if(base64!=undefined){ 
             self.l.text=this.files[0].name;            
             self.o.orig=this.files[0].name;
@@ -61,6 +61,8 @@ function MBPic(c,x,y,f) {
     })
     this.button.startFile();
 
+
+    
 
 
    
@@ -81,6 +83,14 @@ function MBPic(c,x,y,f) {
 
     this.l=new DLabel(this.panel,this.otstup*2+this.button.width,this.otstup+32,"ndsfg");   
     this.l.width=this.panel.width-this.otstup*2+this.button.width;
+
+
+
+
+    //self.dColor.visible=false
+
+
+  
 
     this.butPic=new DButton(this.panel,this.panel.width-20-this.otstup,this.panel.height-20-this.otstup," ",function(base64){        
          
@@ -185,12 +195,14 @@ function MBPic(c,x,y,f) {
 
 
     this.setObj= function(o){ 
-
+        trace(o)
         this.o=o          
         this.l.text=this.o.orig; 
         this.o11=o
         var link=aGlaf.resursData+""+o.id+"/64.png"
-        this.button.loadImeg(link);       
+        this.button.loadImeg(link);
+
+              
     }
 }
 

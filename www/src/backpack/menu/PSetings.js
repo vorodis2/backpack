@@ -40,24 +40,20 @@ export class PSetings extends MOBaza {
                     if(mainBig.objectBase.bd[i].id==self.aThree[this._index].id){
                         
                         if(mainBig.objectBase.bd[i].obj && mainBig.objectBase.bd[i].obj.iz && mainBig.objectBase.bd[i].obj.iz.str){
-                            trace(mainBig.objectBase.bd[i])
+                            
                             var s=mainBig.objectBase.bd[i].obj.iz.str
                             var ss=""
                             for (var i = 0; i < s.length; i++) {                
                                 if(s[i]=='|')ss+='"'
                                 else ss+=s[i];    
                             }
-                            var o=JSON.parse(ss)
-                            
-
+                            var o=JSON.parse(ss);
                             self.tween.stop()
                             self.tween.to(o,self.time).start();
 
                         }
                     }
                 }
-
-
             }
             if(this.idArr==1){
                 self.fun("index1",this._index)              

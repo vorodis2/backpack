@@ -1,13 +1,16 @@
 class TextureBD  {
     constructor(menu, fun) {
+        var self=this;
         this.type = "TextureBD";
         this.par = menu;
-
+        window.selfTBD=this;
         this.margin = aGlaf.otstup;
         this.wh = aGlaf.wh;
         this.whv = aGlaf.whv;
         this.widthBig = aGlaf.widthBig;
         this.objectBase = this.par.objectBase;
+
+        this._sort=-2
 
         this.dCont = new DCont(this.par.dCont);
 
@@ -16,18 +19,23 @@ class TextureBD  {
         this.w.dragBool = false;
         this.w.hasMinimizeButton = false;
 
+        this.mSort=new MSort(this, this.w);
+        this.mSort.dCont.y=127
+
         this._width = 100;
         this._height = 100;
 
         let butOffset = 32;
 
-        this.gallery = new GalleryXZ(this.w, this.margin, butOffset, () => {
+        this.gallery = new GalleryXZ(this.w, aGlaf.otstup, 190, () => {
             this.par.dragPic.testDrag(15, this.clik.bind(this), this.drag.bind(this));
         });
         this.gallery.width = this.widthBig;
         this.gallery.kolII = 4;
         this.gallery.widthPic = 46;
         this.gallery.heightPic = 46;
+
+        
 
         let b;
         let ww = 28;
@@ -56,7 +64,57 @@ class TextureBD  {
         window.textureObject = this.texture;
 
         this.texture.window.y = butOffset;
-        this.gallery.y = this.texture.height + butOffset;
+        
+
+
+        var aZZ=[]
+        this.reDrag=function(){       
+            var b=true
+            trace(self.objectBase)
+            if(this._sort==-1){
+                this.gallery.start(self.objectBase.textures);
+                b=false; 
+            }
+            if(this._sort==-2){
+                aZZ=[];
+                for (var i = 0; i < self.objectBase.textures.length; i++) {
+                    if(self.objectBase.textures[i].sort==undefined)self.objectBase.textures[i].sort=-1;
+                    if(self.objectBase.textures[i].sort==-1){
+                        aZZ.push(self.objectBase.textures[i])
+                    }
+                }
+                this.gallery.start(aZZ);            
+                b=false; 
+            }
+
+            if(b==true){
+                aZZ=[];
+                for (var i = 0; i < self.objectBase.textures.length; i++) {
+                    if(self.objectBase.textures[i].sort==undefined)self.objectBase.textures[i].sort=-1;
+                    if(self.objectBase.textures[i].sort==this._sort){
+                        aZZ.push(self.objectBase.textures[i])
+                    }
+                }
+                this.gallery.start(aZZ);
+            }
+            this.texture.visible = !!this.gallery.array.length;
+            
+        }
+
+        self.par.dragPic.addFunAp(function(){        
+            var num=self.mSort.testXY(self.par.dragPic._x, self.par.dragPic._y); 
+            if(num!=null){
+
+                self.gallery.array[self.gallery.index].object.sort=num;
+                self.reDrag()
+                aGlaf.save();
+                return
+            }       
+        })
+
+
+        if(localS.object.sortTex==undefined)localS.object.sortTex=-2;
+        setTimeout(function() {self.sort = localS.object.sortTex;}, 10); 
 
         this.reDrag();
         this.index = 0;
@@ -90,30 +148,47 @@ class TextureBD  {
         }, 500);
     }
 
-    reDrag() {
+    /*reDrag() {
         this.gallery.start(this.objectBase.textures);
         this.texture.visible = !!this.gallery.array.length;
         this.gallery.index = this.index;
-    }
+    }*/
+
+
+
+
 
     down(butId) {
 
         if (butId == 0) {//создание
             this.creatMat();
         }
+
         if (butId == 1) {//Убиваем
+
             if (this.objDin != undefined) {
+
+                function kill (){
+                    var dir = '../' + aGlaf.resursData + selfTBD.objDin.id;
+                    php.load({ tip: "removeDirRec", dir: dir }, e => {
+                        var a = selfTBD.index;
+                        var b = selfTBD.objectBase.textures.splice(a, 1);
+                        aGlaf.save();
+                        selfTBD.reDrag();
+                        if(a>selfTBD.objectBase.textures.length-1)a=selfTBD.objectBase.textures.length-1;
+                        selfTBD.index=a;
+                    });
+
+                }
+                if(aGlaf.durak==false){
+                    kill()
+                    return
+                }
+
                 this.par.mInfo.setFun("Удаление обьекта", "Обьект будет удален из бд, не вычещаеться из дерева, и может привести к падениям, короче окуратно!!!",
                     () => {
-                        var dir = '../' + aGlaf.resursData + this.objDin.id;
-                        php.load({ tip: "removeDirRec", dir: dir }, e => {
-                            var a = this.index;
-                            var b = this.objectBase.textures.splice(a, 1);
-                            aGlaf.save();
-                            this.reDrag();
-                            this._index = -1;
-                            this.index = a;
-                        });
+                        kill()
+                        
                     }
                 );
             }
@@ -148,12 +223,22 @@ class TextureBD  {
 
     creatMat() {
         var id = "t_" + this.grtMaxPlus();
+
+        function plus (_id){
+            selfTBD.creatMatName(_id)
+
+        }
+        if(aGlaf.durak==false){
+            plus(id);
+            return;
+        }
+
         this.par.mInfo.setFunInput(
             "Создание матерьяла",
             "Задаюм имя идишника матерьяла, если такой есть то он не срабоает",
             id,
             () => {
-                this.creatMatName(this.par.mInfo.text)
+                plus(selfTBD.par.mInfo.text)   
             }
         );
 
@@ -175,8 +260,19 @@ class TextureBD  {
             } else {
                 var id = name;
                 php.load({ tip: 'mkdir', dir: '../' + aGlaf.resursData + id }, function (e) {
+                    
                     php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/256.png', dir: '../' + aGlaf.resursData + id + '/pic.png' }, function (e) {
                     });
+
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/32.png', dir: '../' + aGlaf.resursData + id + '/32.png' }, function (e) {
+                    });
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/100.png', dir: '../' + aGlaf.resursData + id + '/100.png' }, function (e) {
+                    });
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/128.png', dir: '../' + aGlaf.resursData + id + '/128.png' }, function (e) {
+                    });
+                    php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/256.png', dir: '../' + aGlaf.resursData + id + '/256.png' }, function (e) {
+                    });
+
                     php.load({ tip: 'copy', dirWith: '../' + aGlaf.resurs + 'base/64.png', dir: '../' + aGlaf.resursData + id + '/64.png' }, function (e) {
                         let texture = {
                             id: id,
@@ -185,6 +281,7 @@ class TextureBD  {
                             ry: 1,
                             type: 'png',
                         };
+                        texture.sort=self._sort
                         self.objectBase.textures.unshift(texture);
                         aGlaf.save();
                         self.reDrag();
@@ -242,6 +339,24 @@ class TextureBD  {
     get active () {
         return this._active;
     }
+
+
+    set sort (value) {
+        if(this._sort!=value){
+            this._sort=value; 
+
+            localS.object.sortTex=value
+            localS.save()
+            this.mSort.sort=value; 
+            this.reDrag()             
+        }            
+    }
+
+    get sort () {
+        return this._sort;
+    }
+
+
 }
 
 class TextureObject {
@@ -421,14 +536,53 @@ class TextureObject {
             );
             return
         }
-
-        const type = image.name.split('.').pop();
-        const imageMin = await resizeImageFile(image, 64, 64, type);
-        let dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '64.png';
-        let resp = await uploadFile(imageMin, dest);
+        trace("@@@@@@@@@@@@@@@");
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 64, 64, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '64.png';
+        trace("@@@@@@@@@@@@@@@",this.objDin);
+         trace("@@@@@@@@@@@@@@@",dest);
+        trace("@@@@@@@@@@@@@@@",imageMin); 
+        var resp = await uploadFile(imageMin, dest);
+        trace("@@@@@!!@@",resp); 
         if (resp !== 'ok') {
             return;
         }
+        trace("@@@@!!@@@@@@@@@@64@");
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 100, 100, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '100.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 32, 32, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '32.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 128, 128, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '128.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 256, 256, type);
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '256.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+        trace("@@@@!!@@@@@@@@@@@");
 
         dest = '../' + aGlaf.resursData + this.objDin.id + '/' + 'pic.' + type;
         resp = await uploadFile(image, dest);
@@ -511,6 +665,8 @@ function uploadFile(file, dest) {
     data.append('tip', 'saveFile');
     data.append('file', file);
     data.append('dest', dest);
+
+    trace(serverURL)    
 
     return $.ajax({
         url: serverURL,

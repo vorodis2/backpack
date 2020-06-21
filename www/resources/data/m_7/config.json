@@ -52,5 +52,51 @@
         "a": true,
         "st": false,
         "str": "{|xVerh|:0,|yVerh|:-24,|zVerh|:0,|rotationX|:0.94,|rotationZ|:0.19000000000000003,|zume|:85.32001384146898}"
-    }
+    },
+    "mod": {
+        "key": "n",
+        "name": "n",
+        "r": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "r1": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    "param": {
+        "tOt": false,
+        "tNa": false,
+        "rO": -1,
+        "kesh": false,
+        "sG": false,
+        "clone": true
+    },
+    "bool": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "num": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "str": [
+        "0",
+        "0",
+        "0",
+        "0"
+    ]
 }

@@ -12,8 +12,7 @@ import { Glaf } from './Glaf.js';
 import { LocalStorage } from '../localStorage/LocalStorageE6.js';
 
 export class Main  {
-  	constructor(fun) {  
-  	trace("######asd####");		
+  	constructor(fun) {			
  		this.type="Main";
   		this.fun=fun
   		var self=this;
@@ -25,13 +24,50 @@ export class Main  {
 		self.confText=null 
         this.localStorage=undefined;
         this.debug=false
+        this.mobile=false;
 		this.contentHTML= document.createElement('div');
 		this.contentHTML.style.position = 'fixed';
 		this.contentHTML.style.top = '0px';
 		this.contentHTML.style.left = '0px';
 		document.body.appendChild(this.contentHTML);  		
 
+
 		global.mainBig=this
+
+
+		this.isMobile = {
+			Android: function () {
+				return navigator.userAgent.match(/Android/i);
+			},
+			BlackBerry: function () {
+				return navigator.userAgent.match(/BlackBerry/i);
+			},
+			iOS: function () {
+
+				let r = navigator.userAgent.match(/iPhone|iPad|iPod/i);
+		        if(r==null ){
+		            if(navigator.userAgent.match(/Mac OS/i)!=null){
+		                if(window.matchMedia("(any-pointer:coarse)").matches==true){
+		                    r="Mac Заебали менять апи";
+		                }
+		            }
+		        }
+				return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+			},
+			Opera: function () {
+				return navigator.userAgent.match(/Opera Mini/i);
+			},
+			Windows: function () {
+				return navigator.userAgent.match(/IEMobile/i);
+			},
+			any: function () {
+				return (self.isMobile.Android() || self.isMobile.BlackBerry() || self.isMobile.iOS() || self.isMobile.Opera() || self.isMobile.Windows());
+			}
+		};
+		if(this.isMobile.any()!=null)this.mobile=true;
+
+
+
 		//создание сцены
   		this.start = function () {	   
 			this.tick();            
@@ -65,6 +101,17 @@ export class Main  {
 			requestAnimationFrame(self.tick );			
 		}
 
+
+		this.setId=function(id,three){
+			this.glaf.setId(id,three)
+
+		}
+		this.setSob= function(s,p) { 	        
+	        this.glaf.setSob(s,p)	        
+	    }
+
+
+
 		this.boolCTRL=false
 		this.keydown=function(e){
 	        if(event.keyCode==17)self.boolCTRL=true
@@ -92,9 +139,11 @@ export class Main  {
 			if (self._height < 600) self._height = 600;
 			s= w/self._width;
 			if(s>h/self._height)s=h/self._height;
-			if(dcmParam.mobile==false)s = 1;
-			trace(s)	
-			if(dcmParam.isIE==true)s= 1;	
+			
+			if(this.mobile==false)s = 1;
+
+			
+				
 			if(s<0.5)s=0.5
 			this.scale = s;
 					

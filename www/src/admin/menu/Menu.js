@@ -1,7 +1,7 @@
 
 
 
-
+var menuBig
 function Menu(aGlaf, fun) {  
     var self=this;  
     this.type="Menu";
@@ -13,7 +13,7 @@ function Menu(aGlaf, fun) {
     
     this.dragPic=new DragPic(this.dCont);
 
-   
+    menuBig=this;    
 
     this.array=[]
 

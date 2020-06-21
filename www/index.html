@@ -15,36 +15,25 @@
 	var path="src/"
 	var plus="?"+Math.random();
 	var manifest = [
-		{src: path + 'libMy/divLib.js' + plus},		
+			
 		{src: path + 'lib/jquery-1.11.3.js' + plus},
 		{src: path + 'lib/three99.js' + plus},
 		//{src: path + 'lib/three.min.js' + plus},
-		//{src: path + 'lib/shader/ShaderAll.js' + plus},
 		{src: path + '/lib/tween.min.js' + plus},
-
-		//{src: path + 'lib/pixi.js' + plus},		
-		//{src: path + 'lib/pixi/filters/pixi-extra-filters.js' + plus},
-
 		{src: path + 'lib/loaders/GLTFLoader.js' + plus},
-		//{src: path + 'lib/loaders/RGBELoader.js' + plus},
-
-		//{src: path + 'libMy/utility/Calc.js' + plus},
-		//{src: path + 'libMy/utility/Rectangle.js' + plus},
-
-		//{src: path + 'libMy/FileSaver.js' + plus},	
 
 
+		{src:  'build/build.js' + plus},
 
 
-		//{src: path + 'php/Php.js' + plus},
-
-		{src:  'build/build.js' + plus}
+		{src: path + 'libMy/divLib.js' + plus},	
+		{src: path + 'backpack/menu/MenuApi.js' + plus}
 
 	];
 
 
 
-	var main
+	var main,menu
 	function sizeWindow () {
 		var w = document.documentElement.clientWidth;
 		var h = document.documentElement.clientHeight;
@@ -62,29 +51,51 @@
 			"resources/image/256.png",			
 			manifest,
 			function () {  				
-				dcmParam = new DCM();				
+								
 				main=new Main(function(s, p){
 					if(s=="init"){
+						//иницилизация прошла, иницилизируем меню-------------------------						
+						dcmParam = new DCM();
+						menu=new MenuApi(function(s, p){
+							main.setSob(s, p);
+
+						});					
+						//----------------------------------------------------------------
 						appLoader.indicator.procent = 100;
+
+						setModel(15)
 						sizeWindow();												
 						
 					}
-					if(s=="video"){
-						getVideo(p);
-
+					if(s=="indexName"){
+						menu.setSob(s, p)
 					}
-
-				},1)				
-				sizeWindow()				
+				})
+				sizeWindow();				
 			},
 			null,
 			-85		
-		)
-		ga('create', 'UA-30708630-1', 'auto');  
-       	ga('send', 'pageview');	
+		)		
+
 		sizeWindow();		
 	}
 
+
+	function setModel (id) {		
+		let p=-1;
+		for (var i = 0; i < main.objectBase.three.length; i++) {
+			let a=main.objectBase.three[i].keyName.split("_")
+			if(a[1]&&a[0]=="obj"&&a[1]==""+id)	p=i
+		}
+		if(p==-1){
+			console.warn("В админ нет в дереве ветки с этим обьектом http://prntscr.com/t3d69v")
+			return;
+		}
+		menu.setThree(main.objectBase.three[p]);
+		main.setId(id,main.objectBase.three[p]);
+
+
+	}
 		
 
 
@@ -103,16 +114,6 @@
 
 	}
 
-
-
-
-
-	//-----------------------------
-	
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); 
 
 
 

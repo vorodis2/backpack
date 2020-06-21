@@ -6,11 +6,15 @@ function GalleryXZ(dCont, _x, _y, _fun) {
    
 
     this.createZamen=function(){            
-        var r=new BoxXZ(this.content, 0, 0, this.downBtn);            
+        var r=new BoxXZ(this.content, 0, 0, this.downBtn, this);            
         return r;
     }
 
-
+    this.dragColorGal=function(){
+        for (var i = 0; i < this.array.length; i++) {
+            this.array[i].dragColorGal()
+        }
+    }
 
 
     
@@ -48,13 +52,39 @@ Object.defineProperties(GalleryXZ.prototype, {
 
 
 
-function BoxXZ(dCont, _x, _y, _fun) {
+function BoxXZ(dCont, _x, _y, _fun, par) {
     DBox.call(this, dCont, _x, _y, _fun);
     this.type = 'BoxXZ';
     var self=this
+    this.par = par;
+
+
+    this.dragColorGal=function(){
+        if(this.object.c!=undefined){                    
+            
+            if(this._color1 != this.object.c){
+                this._color1 = this.object.c;
+                this.panel.color1=this._color1;
+                this.draw()
+            }
+        }else{
+         
+            if(this._color1 != this.par._color1){
+                this._color1 = this.par._color1;
+                this.panel.color1=this._color1;
+                this.draw();
+            }
+        }
+    }
+
+
     this.startLoad = function (_obj) {
         this.object = _obj;
         var link=aGlaf.resursData+""+_obj.id+"/64.png"+aGlaf.plusLink
+
+        
+        this.dragColorGal()
+
        
         if(_obj.title!=undefined){
             this.label.visible=true

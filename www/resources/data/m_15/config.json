@@ -30,5 +30,51 @@
     "resurs": {
         "array": []
     },
-    "orig": "pic.png"
+    "orig": "pic.png",
+    "mod": {
+        "key": "n",
+        "name": "n",
+        "r": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "r1": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ]
+    },
+    "param": {
+        "tOt": false,
+        "tNa": false,
+        "rO": -1,
+        "kesh": false,
+        "sG": false,
+        "clone": true
+    },
+    "bool": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "num": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "str": [
+        "0",
+        "0",
+        "0",
+        "0"
+    ]
 }

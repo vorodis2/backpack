@@ -148,9 +148,7 @@ function MatObject(menu, fun) {
                 aGlaf.save()
             }
         }
-        var s=   JSON.stringify(this.object, null,4)
-
-
+        var s=   JSON.stringify(this.object, null,4);
         var l="../"+aGlaf.resursData+""+this.object.id+"/config.json";       
         aGlaf.php.load({tip:"saveJSON", link:l, text:s},function(e){
             
