@@ -309,7 +309,7 @@ export class BMaterial  {
             var s=this.object.obj.iz.str
             var ss=""
             for (var i = 0; i < s.length; i++) {                
-                if(s[i]=='|')ss+='"'
+                if(s[i]=='|')ss+='"';
                 else ss+=s[i];    
             }
             var o=JSON.parse(ss);
