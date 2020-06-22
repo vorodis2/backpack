@@ -540,15 +540,22 @@ class TextureObject {
         var type = image.name.split('.').pop();
         var imageMin = await resizeImageFile(image, 64, 64, type);
         var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + '64.png';
-        trace("@@@@@@@@@@@@@@@",this.objDin);
-         trace("@@@@@@@@@@@@@@@",dest);
-        trace("@@@@@@@@@@@@@@@",imageMin); 
+         
         var resp = await uploadFile(imageMin, dest);
         trace("@@@@@!!@@",resp); 
         if (resp !== 'ok') {
             return;
         }
-        trace("@@@@!!@@@@@@@@@@64@");
+        trace(type,">>>>>>>>>>>.",image)
+        var type = image.name.split('.').pop();
+        var imageMin = await resizeImageFile(image, 100, 100, "png");
+        var dest = '../' + aGlaf.resursData + this.objDin.id + '/' + 'pic.png';
+        var resp = await uploadFile(imageMin, dest);
+        if (resp !== 'ok') {
+            return;
+        }
+
+
 
         var type = image.name.split('.').pop();
         var imageMin = await resizeImageFile(image, 100, 100, type);
@@ -647,6 +654,12 @@ function resizeImage(src, width, height, type = 'png', fileName = '_') {
         const mime = type === 'png' ? 'image/png' : 'image/jpeg';
         img.onload = () => {
             const elem = document.createElement('canvas');
+
+            if(width==null){
+                width=img.naturalWidth
+                height=img.naturalHeight
+            }
+
             elem.width = width;
             elem.height = height;
             const ctx = elem.getContext('2d');

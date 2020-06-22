@@ -22,10 +22,10 @@
                 "l": "pic.jpg",
                 "name": "map",
                 "rx": "1",
-                "ry": "1"
+                "ry": "-1"
             }
         ],
-        "emissive": "#000000",
+        "emissive": "#060606",
         "specular": "#111111",
         "shininess": 30
     },
