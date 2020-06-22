@@ -10,7 +10,7 @@ export class BlokMaterial  {
         this.idArr=idArr;
         this._color="null";
 
-        trace(this.idArr,this.obj)
+
         var wh=1024
         this.children=[]    
         this.canvas = document.createElement('canvas'); // канвас для картинки
@@ -52,36 +52,13 @@ export class BlokMaterial  {
             this.ctx.fillRect(0, 0, wh, wh);
             this.ctx.fillStyle = this.color;
 
-          /*  this.ctx.strokeStyle = '#000000';
-            this.ctx.moveTo( 0,  0 );
-            for (var i = 0; i < 100; i++) {
-                this.ctx.lineTo( wh*Math.random(),  wh*Math.random() );
-            }
-            this.ctx.stroke();*/
 
-
-
-
-            trace("@@@@draw@@");
-            for (var i = 0; i < this.array.length; i++) {
-                trace(this.array[i].active,this.array[i].link,this.array[i].bLoad);
+            for (var i = 0; i < this.array.length; i++) { 
                 if(this.array[i].active && this.array[i].link!="null" && this.array[i].bLoad==true){
-                    trace("@########@");
                     this.ctx.drawImage(this.array[i].image, this.array[i].x*wh, this.array[i].y*wh, this.array[i].width*wh, this.array[i].height*wh);
-
-                    //this.ctx.drawImage(this.array[i].image, 0, 0, wh, wh);
-                
-                    trace(this.array[i].image, this.array[i].x*wh, this.array[i].y*wh, this.array[i].width*wh, this.array[i].height*wh);
-                    trace(this.par)
-                    trace(this.par.image)
                     this.par.image.link=this.canvas.toDataURL("image/png");
                 }
             }
-
-            
-
-            
-
             this.cTexture.needsUpdate = true
             this.material.needsUpdate = true 
             visi3D.intRend=1;           

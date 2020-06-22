@@ -58,12 +58,11 @@
 						dcmParam = new DCM();
 						menu=new MenuApi(function(s, p){
 							main.setSob(s, p);
-
 						});					
 						//----------------------------------------------------------------
 						appLoader.indicator.procent = 100;
-
-						setModel(15)
+						creatGal()
+						setModel(15);
 						sizeWindow();												
 						
 					}
@@ -80,7 +79,22 @@
 		sizeWindow();		
 	}
 
+	//парсинг галереи и применения их в апи
+	function creatGal () {	
+		let a=[]
+		for (var i = 0; i < main.objectBase.three.length; i++) {
+			//елементы бекграунда
+			if(main.objectBase.three[i].keyName=="background")a.push(main.objectBase.three[i])
+			//цвет
+			if(main.objectBase.three[i].keyName=="color")a.push(main.objectBase.three[i])	
+			//картинки в позициях
+			if(main.objectBase.three[i].keyName=="picPosit")a.push(main.objectBase.three[i])	
+		}
+		menu.setGal(a);
 
+	}
+
+	//ремстерт модель  тут ижеться обьект в дереве и инициализируеться как в 3д так и в апи 2д
 	function setModel (id) {		
 		let p=-1;
 		for (var i = 0; i < main.objectBase.three.length; i++) {

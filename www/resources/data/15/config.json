@@ -92,6 +92,6 @@
     "iz": {
         "a": true,
         "st": false,
-        "str": "{|xVerh|:-3.07740288754276,|yVerh|:-14.259770990857591,|zVerh|:5.640732526596578,|rotationX|:1.2,|rotationZ|:1.51,|zume|:133.6587095134969}"
+        "str": "[0,0,{|material|:|m_13|,|sah|:2},0,0,0,{|material|:|m_2|,|sah|:6},{|material|:|m_2|,|sah|:7},0,{|material|:|m_14|,|sah|:9},{|material|:|m_14|,|sah|:10},0]"
     }
 }

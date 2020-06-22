@@ -48,10 +48,22 @@ export class Backpack  {
         }
 
         this.setSob= function(s,p) {            
-            trace(s,p)  
+             
             if(s=="indexName") {
                 this.indexName=p;
                 if(this.array[this.index])this.array[this.index].startAnimat()
+            }
+            if(this._index!=-1){
+
+                if(s=="color") {                    
+                    if(this.array[this.index])this.array[this.index].color=p
+                }
+                if(s=="background") {                    
+                    if(this.array[this.index])this.array[this.index].background=p
+                }
+                if(s=="picPosit") {                    
+                    if(this.array[this.index])this.array[this.index].picPosit=p
+                }
             }
 
         }
@@ -248,36 +260,68 @@ export class BMaterial  {
         var self=this;
         this.par=par;
         this.fun=fun;
-        this.color=0xffffff;
+
+        this._color="#ffffff";  
+
+        /*this.color2=0xffffff;        
         this.color1=0x7cc5d8;
 
-        this.colorA=0xf2efe8;
-        this.color1A=0x5ca598;
+        this.color2A=0xf2efe8;
+        this.color1A=0x5ca598;*/
+
+        this.color2=0x000000;        
+        this.color1=0x111111;
+
+        this.color2A=0x222222;
+        this.color1A=0x333333;
+
         this._active=false;
         this._actNa=false;
-        this.material=new THREE.MeshPhongMaterial({color:this.color, map:this.textur});
+
+        this._background="null";
+        this._picPosit="null";                   
+                  
+
+        var wh=1024
+        this.children=[]    
+        this.canvas = document.createElement('canvas'); // канвас для картинки
+        this.canvas.width=wh;
+        this.canvas.height=wh;
+        this.ctx = this.canvas.getContext('2d'); // контекст картинки
+
+        this.cTexture=new THREE.CanvasTexture(this.canvas);
+        this.cTexture.wrapS = THREE.RepeatWrapping;
+        this.cTexture.wrapT = THREE.RepeatWrapping;
+        this.cTexture.repeat.y = -1;
+
+
+        this.material=new THREE.MeshPhongMaterial({color:this._color, map:this.cTexture});
+
+
 
         this.dragColor=function(){
             if(this._active==false){
                 if(this._actNa==false){
-                    this.material.color=new THREE.Color(this.color);
+                    this.material.emissive=new THREE.Color(this.color2);
                 }else{
-                    this.material.color=new THREE.Color(this.colorA);
+                    this.material.emissive=new THREE.Color(this.color2A);
                 }                
             }else{
                 if(this._actNa==false){
-                    this.material.color=new THREE.Color(this.color1);
+                    this.material.emissive=new THREE.Color(this.color1);
                 }else{
-                    this.material.color=new THREE.Color(this.color1A);
+                    this.material.emissive=new THREE.Color(this.color1A);
                 }
             }
             this.par.par.visi3D.intRend=1
+            visi3D.intRend=1; 
         }
 
         this.c3d
         this.obj
         this.object
         this.name="nullXZ"
+        this.ro={x:0,y:0,w:1,h:1}
         this.set=function(c3d, obj){
             
             for (var i = 0; i < mainBig.objectBase.bd.length; i++) {                    
@@ -286,6 +330,19 @@ export class BMaterial  {
                 }
             }
             trace("fgh",this.object)
+
+            this.ro.x=0
+            this.ro.y=0
+            this.ro.w=1
+            this.ro.h=1
+
+            if(this.object.obj.iNum&& this.object.obj.iNum.num&& this.object.obj.iNum.num[2]!=0){
+                this.ro.x=this.object.obj.iNum.num[0]
+                this.ro.y=this.object.obj.iNum.num[1]
+                this.ro.w=this.object.obj.iNum.num[2]
+                this.ro.h=this.object.obj.iNum.num[3]
+            }
+            
 
             this.c3d=c3d;
             this.obj=obj;
@@ -318,7 +375,65 @@ export class BMaterial  {
             this.par.tween.stop()
             this.par.tween.to(o,500).start();
         }
+
+
+        this.image = new Image();
+        this.image.onload=function(){
+          
+            self.draw();            
+        }
+
+        this.image1 = new Image();
+        this.image1.onload=function(){
+            
+            self.draw();            
+        }
+    
+        this.draw=function(){
+            trace("this.draw",this.color)
+            this.ctx.clearRect(0, 0, wh, wh);
+            this.ctx.fillStyle = this.color;
+
+            this.ctx.fillRect(0, 0, wh, wh);
+            this.ctx.fillStyle = this.color;
+            this.ctx.drawImage(this.image1, 0, 0, wh, wh);
+            this.ctx.drawImage(this.image, this.ro.x*wh, this.ro.y*wh, this.ro.w*wh, this.ro.h*wh);
+
+            this.cTexture.needsUpdate = true
+            this.material.needsUpdate = true 
+            visi3D.intRend=1;  
+
+        }
+
     }
+
+    set background(value) {
+        if (this._background != value) {
+            this._background = value;
+            this.image1.src=value;                  
+        }           
+    }
+    get background() { return this._background; }
+
+
+    set picPosit(value) {
+        if (this._picPosit != value) {
+            this._picPosit = value;
+            trace(value)
+            this.image.src=value;                  
+        }           
+    }
+    get picPosit() { return this._picPosit; }
+
+    set color(value) {
+        
+        if (this._color != value) {
+            this._color = value
+            this.draw()
+        }           
+    }
+    get color() { return this._color; }
+
 
     set active(value) {
         if (this._active != value) {
